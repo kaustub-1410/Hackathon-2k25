@@ -11,8 +11,10 @@ function showSection(sectionId) {
   sections.forEach((section) => {
     if (section.id === sectionId) {
       section.classList.remove("hidden-section");
+      section.classList.add("fade-in");
     } else {
       section.classList.add("hidden-section");
+      section.classList.remove("fade-in");
     }
   });
 }
@@ -133,77 +135,115 @@ function renderPatients() {
 }
 
 // Add new patient record
-document
-  .getElementById("addPatientForm")
-  .addEventListener("submit", function (e) {
-    e.preventDefault();
-    const newId = document.getElementById("newId").value;
-    const newName = document.getElementById("newName").value;
-    const newAge = document.getElementById("newAge").value;
-    const newLastTest = document.getElementById("newLastTest").value;
-    const newStatus = document.getElementById("newStatus").value;
-    patients.push({
-      id: newId,
-      name: newName,
-      age: parseInt(newAge),
-      lastTest: newLastTest,
-      status: newStatus,
-    });
-    renderPatients();
-    this.reset();
+document.getElementById("addPatientForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+  const newId = document.getElementById("newId").value;
+  const newName = document.getElementById("newName").value;
+  const newAge = document.getElementById("newAge").value;
+  const newLastTest = document.getElementById("newLastTest").value;
+  const newStatus = document.getElementById("newStatus").value;
+  patients.push({
+    id: newId,
+    name: newName,
+    age: parseInt(newAge),
+    lastTest: newLastTest,
+    status: newStatus,
   });
+  renderPatients();
+  this.reset();
+});
 
 // Delegate edit and delete actions using event delegation on tbody
-document
-  .getElementById("patientsTableBody")
-  .addEventListener("click", function (e) {
-    if (e.target.classList.contains("delete-btn")) {
-      const index = e.target.getAttribute("data-index");
-      patients.splice(index, 1);
-      renderPatients();
-    } else if (e.target.classList.contains("edit-btn")) {
-      const index = e.target.getAttribute("data-index");
-      const row = e.target.closest("tr");
-      const patient = patients[index];
-      row.innerHTML = `
-        <td class="px-6 py-4 whitespace-nowrap">
-          <input type="text" class="border rounded px-2 py-1" value="${patient.id}" />
-        </td>
-        <td class="px-6 py-4 whitespace-nowrap">
-          <input type="text" class="border rounded px-2 py-1" value="${patient.name}" />
-        </td>
-        <td class="px-6 py-4 whitespace-nowrap">
-          <input type="number" class="border rounded px-2 py-1" value="${patient.age}" />
-        </td>
-        <td class="px-6 py-4 whitespace-nowrap">
-          <input type="date" class="border rounded px-2 py-1" value="${patient.lastTest}" />
-        </td>
-        <td class="px-6 py-4 whitespace-nowrap">
-          <select class="border rounded px-2 py-1">
-            <option value="Benign" ${patient.status === "Benign" ? "selected" : ""}>Benign</option>
-            <option value="Malignant" ${patient.status === "Malignant" ? "selected" : ""}>Malignant</option>
-          </select>
-        </td>
-        <td class="px-6 py-4 whitespace-nowrap">
-          <button class="save-btn bg-green-600 text-white py-1 px-2 rounded mr-2" data-index="${index}">Save</button>
-          <button class="cancel-btn bg-gray-500 text-white py-1 px-2 rounded" data-index="${index}">Cancel</button>
-        </td>
-      `;
-    } else if (e.target.classList.contains("save-btn")) {
-      const index = e.target.getAttribute("data-index");
-      const row = e.target.closest("tr");
-      const inputs = row.querySelectorAll("input, select");
-      const updatedPatient = {
-        id: inputs[0].value,
-        name: inputs[1].value,
-        age: parseInt(inputs[2].value),
-        lastTest: inputs[3].value,
-        status: inputs[4].value,
-      };
-      patients[index] = updatedPatient;
-      renderPatients();
-    } else if (e.target.classList.contains("cancel-btn")) {
-      renderPatients();
+document.getElementById("patientsTableBody").addEventListener("click", function (e) {
+  if (e.target.classList.contains("delete-btn")) {
+    const index = e.target.getAttribute("data-index");
+    patients.splice(index, 1);
+    renderPatients();
+  } else if (e.target.classList.contains("edit-btn")) {
+    const index = e.target.getAttribute("data-index");
+    const row = e.target.closest("tr");
+    const patient = patients[index];
+    row.innerHTML = `
+      <td class="px-6 py-4 whitespace-nowrap">
+        <input type="text" class="border rounded px-2 py-1" value="${patient.id}" />
+      </td>
+      <td class="px-6 py-4 whitespace-nowrap">
+        <input type="text" class="border rounded px-2 py-1" value="${patient.name}" />
+      </td>
+      <td class="px-6 py-4 whitespace-nowrap">
+        <input type="number" class="border rounded px-2 py-1" value="${patient.age}" />
+      </td>
+      <td class="px-6 py-4 whitespace-nowrap">
+        <input type="date" class="border rounded px-2 py-1" value="${patient.lastTest}" />
+      </td>
+      <td class="px-6 py-4 whitespace-nowrap">
+        <select class="border rounded px-2 py-1">
+          <option value="Benign" ${patient.status === "Benign" ? "selected" : ""}>Benign</option>
+          <option value="Malignant" ${patient.status === "Malignant" ? "selected" : ""}>Malignant</option>
+        </select>
+      </td>
+      <td class="px-6 py-4 whitespace-nowrap">
+        <button class="save-btn bg-green-600 text-white py-1 px-2 rounded mr-2" data-index="${index}">Save</button>
+        <button class="cancel-btn bg-gray-500 text-white py-1 px-2 rounded" data-index="${index}">Cancel</button>
+      </td>
+    `;
+  } else if (e.target.classList.contains("save-btn")) {
+    const index = e.target.getAttribute("data-index");
+    const row = e.target.closest("tr");
+    const inputs = row.querySelectorAll("input, select");
+    const updatedPatient = {
+      id: inputs[0].value,
+      name: inputs[1].value,
+      age: parseInt(inputs[2].value),
+      lastTest: inputs[3].value,
+      status: inputs[4].value,
+    };
+    patients[index] = updatedPatient;
+    renderPatients();
+  } else if (e.target.classList.contains("cancel-btn")) {
+    renderPatients();
+  }
+});
+
+/* Tumor Parameters Multi-Step Form Logic */
+function showStep(stepId) {
+  const steps = document.querySelectorAll(".step");
+  steps.forEach((step) => {
+    if (step.id === stepId) {
+      step.classList.remove("hidden-section");
+      step.classList.add("fade-in");
+    } else {
+      step.classList.add("hidden-section");
+      step.classList.remove("fade-in");
     }
   });
+}
+
+// Navigation for multi-step form
+document.getElementById("nextToStep2")?.addEventListener("click", () => {
+  showStep("step2");
+});
+
+document.getElementById("prevToStep1")?.addEventListener("click", () => {
+  showStep("step1");
+});
+
+document.getElementById("nextToStep3")?.addEventListener("click", () => {
+  showStep("step3");
+});
+
+document.getElementById("prevToStep2")?.addEventListener("click", () => {
+  showStep("step2");
+});
+
+// Tumor form submission
+document.getElementById("tumorForm")?.addEventListener("submit", function (e) {
+  e.preventDefault();
+  const formData = new FormData(this);
+  // Process the tumor parameters (e.g., send to server or store locally)
+  for (let [key, value] of formData.entries()) {
+    console.log(key, value);
+  }
+  alert("Tumor parameters saved successfully!");
+});
 

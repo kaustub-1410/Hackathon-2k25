@@ -69,11 +69,14 @@
           </div>
           <div class="flex items-center">
             <button
-              type="button"
-              class="flex items-center bg-white text-blue-600 py-2 px-4 rounded-lg shadow-lg transition duration-300 hover:bg-gray-100 transform hover:scale-105"
-            >
-              <i class="fas fa-user-md mr-2"></i>Dr. Smith
-            </button>
+  type="button"
+  onclick="window.location.href='./ChatBot/index.html';"
+  class="flex items-center bg-white text-blue-600 py-2 px-4 rounded-lg shadow-lg transition duration-300 hover:bg-gray-100 transform hover:scale-105"
+>
+  <i class="fas fa-comments mr-2"></i>ChatBot
+</button>
+
+
           </div>
         </div>
       </div>
@@ -361,6 +364,164 @@
             </div>
           </div>
         </div>
+
+        <!-- Multi-Step Form for Tumor Detailed Parameters -->
+        <div class="bg-white shadow-2xl rounded-lg p-6 mb-8">
+          <form id="tumorForm">
+            <!-- Step 1: Tumor Characteristics -->
+            <div class="step" id="step1">
+              <h2 class="text-2xl font-bold text-gray-900 mb-6">Tumor Characteristics</h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700">Mean Radius (mm)</label>
+                  <input type="number" step="0.01" name="meanRadius" value="12.80" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-600" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700">Mean Texture</label>
+                  <input type="number" step="0.01" name="meanTexture" value="18.40" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-600" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700">Mean Perimeter (mm)</label>
+                  <input type="number" step="0.01" name="meanPerimeter" value="85.60" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-600" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700">Mean Area (mm²)</label>
+                  <input type="number" step="0.01" name="meanArea" value="550.30" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-600" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700">Mean Smoothness</label>
+                  <input type="number" step="0.001" name="meanSmoothness" value="0.085" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-600" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700">Mean Compactness</label>
+                  <input type="number" step="0.001" name="meanCompactness" value="0.130" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-600" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700">Mean Concavity</label>
+                  <input type="number" step="0.001" name="meanConcavity" value="0.095" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-600" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700">Mean Concave Points</label>
+                  <input type="number" step="0.001" name="meanConcavePoints" value="0.050" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-600" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700">Mean Symmetry</label>
+                  <input type="number" step="0.001" name="meanSymmetry" value="0.160" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-600" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700">Mean Fractal Dimension</label>
+                  <input type="number" step="0.001" name="meanFractalDimension" value="0.058" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-600" />
+                </div>
+              </div>
+              <div class="mt-4 flex justify-end">
+                <button type="button" id="nextToStep2" class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-300">Next</button>
+              </div>
+            </div>
+
+            <!-- Step 2: Standard Error (SE) Measurements -->
+            <div class="step hidden-section" id="step2">
+              <h2 class="text-2xl font-bold text-gray-900 mb-6">Standard Error (SE) Measurements</h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700">Radius SE (mm)</label>
+                  <input type="number" step="0.01" name="radiusSE" value="0.35" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-600" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700">Texture SE</label>
+                  <input type="number" step="0.01" name="textureSE" value="1.10" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-600" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700">Perimeter SE (mm)</label>
+                  <input type="number" step="0.01" name="perimeterSE" value="2.20" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-600" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700">Area SE (mm²)</label>
+                  <input type="number" step="0.01" name="areaSE" value="28.40" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-600" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700">Smoothness SE</label>
+                  <input type="number" step="0.001" name="smoothnessSE" value="0.007" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-600" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700">Compactness SE</label>
+                  <input type="number" step="0.001" name="compactnessSE" value="0.020" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-600" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700">Concavity SE</label>
+                  <input type="number" step="0.001" name="concavitySE" value="0.012" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-600" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700">Concave Points SE</label>
+                  <input type="number" step="0.001" name="concavePointsSE" value="0.008" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-600" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700">Symmetry SE</label>
+                  <input type="number" step="0.001" name="symmetrySE" value="0.018" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-600" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700">Fractal Dimension SE</label>
+                  <input type="number" step="0.001" name="fractalDimensionSE" value="0.004" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-600" />
+                </div>
+              </div>
+              <div class="mt-4 flex justify-between">
+                <button type="button" id="prevToStep1" class="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600 transition duration-300">Previous</button>
+                <button type="button" id="nextToStep3" class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-300">Next</button>
+              </div>
+            </div>
+
+            <!-- Step 3: Worst Measurements -->
+            <div class="step hidden-section" id="step3">
+              <h2 class="text-2xl font-bold text-gray-900 mb-6">Worst Measurements</h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700">Worst Radius (mm)</label>
+                  <input type="number" step="0.01" name="worstRadius" value="16.90" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-600" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700">Worst Texture</label>
+                  <input type="number" step="0.01" name="worstTexture" value="22.80" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-600" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700">Worst Perimeter (mm)</label>
+                  <input type="number" step="0.01" name="worstPerimeter" value="110.50" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-600" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700">Worst Area (mm²)</label>
+                  <input type="number" step="0.01" name="worstArea" value="850.20" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-600" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700">Worst Smoothness</label>
+                  <input type="number" step="0.001" name="worstSmoothness" value="0.130" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-600" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700">Worst Compactness</label>
+                  <input type="number" step="0.001" name="worstCompactness" value="0.270" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-600" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700">Worst Concavity</label>
+                  <input type="number" step="0.001" name="worstConcavity" value="0.210" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-600" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700">Worst Concave Points</label>
+                  <input type="number" step="0.001" name="worstConcavePoints" value="0.100" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-600" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700">Worst Symmetry</label>
+                  <input type="number" step="0.001" name="worstSymmetry" value="0.240" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-600" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700">Worst Fractal Dimension</label>
+                  <input type="number" step="0.001" name="worstFractalDimension" value="0.075" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-600" />
+                </div>
+              </div>
+              <div class="mt-4 flex justify-between">
+                <button type="button" id="prevToStep2" class="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600 transition duration-300">Previous</button>
+                <button type="submit" class="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 transition duration-300">Submit</button>
+              </div>
+            </div>
+          </form>
+        </div>
+
         <!-- Image Upload -->
         <div class="bg-white shadow-2xl rounded-lg p-6 mb-8">
           <h2 class="text-2xl font-bold text-gray-900 mb-6">Image Upload</h2>
@@ -388,6 +549,7 @@
             </div>
           </div>
         </div>
+
         <!-- Analysis Results -->
         <div class="bg-white shadow-2xl rounded-lg p-6 relative">
           <div class="absolute right-4 top-4">
@@ -499,4 +661,3 @@
     <script src="script.js"></script>
   </body>
 </html>
-
